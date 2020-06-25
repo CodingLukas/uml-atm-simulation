@@ -4,12 +4,12 @@ import java.util.ArrayList;
 public class BankInfoSystem 
     {
 // field cards is a data structure which can have references to many Card objects   
-    ArrayList<Card> cards = new ArrayList(); 
+    ArrayList<Card> cards = new ArrayList();
 
     public BankInfoSystem ()
         {
-        Card card1 = new Card( 12345, 54321 );
-        Card card2 = new Card( 98765, 56789 );
+        Card card1 = new Card( 12345, 54321, 100 );
+        Card card2 = new Card( 98765, 56789, 0 );
         
         cards.add(card1);
         cards.add(card2);
@@ -34,9 +34,18 @@ public class BankInfoSystem
             {
             if ( (card.getCardNumber() == cardNumberLogin ) 
                     && (card.getPin() == pinLogin ))
+                {
                return true;
+                }
             }
         return false;
         }
     
+    public double getBalance(int accountNumber) {
+         for ( Card card : cards )  
+          if ( (card.getCardNumber() == accountNumber )) 
+                 return card.getBalance();
+          throw new RuntimeException();
+    }
+
 }

@@ -1,6 +1,8 @@
 package atm;
 
 import bankInfoSystem.BankInfoSystem;
+import bankInfoSystem.Card;
+import operations.BalanceInquiry;
 
 public class ATM 
     {
@@ -12,6 +14,7 @@ public class ATM
 //    private int cardNumber;
     private Authentication authentication; // field
 //    Authentication authentication = new Authentication();
+    private BalanceInquiry balanceInquiry; // field
 
     public ATM(BankInfoSystem bankInfoSystem) 
         {
@@ -19,6 +22,7 @@ public class ATM
         this.bankInfoSystem = bankInfoSystem;
         
         screen = new Screen();
+        
         
         }
 
@@ -38,13 +42,40 @@ public class ATM
         {
         authentication = new Authentication( );
         authentication.login( bankInfoSystem, screen, keypad );
-        // Select and execute transaction
         Integer cardNumber = authentication.getCardNumber();
-//        executeBalanceInquiry( cardNumber );
-//        executeBalanceInquiry( authentication.getCardNumber() );
+        balanceInquiry = new BalanceInquiry(cardNumber);
+        // Select and execute transaction
+        executeMainMenu();
         authentication.logout( screen );
-//        authentication = null;
-
+        authentication = null;
+        balanceInquiry = null;
         }
+    
+    private void executeMainMenu(){
+        while(true){
+            screen.displayMessage("Main menu\n");
+            screen.displayMessage("1 - View my balance\n");
+            screen.displayMessage("2 - Withdraw cash\n");
+            screen.displayMessage("3 - Deposit funds\n");
+            screen.displayMessage("4 - Exit\n");
+            screen.displayMessage("Enter a choice:\n");
+            int input = keypad.getInput();
+            switch(input){
+                case 1:
+                    executeBalanceInquiry();
+                    break;
+                case 4:
+                    screen.displayMessage("Thank you.\n");
+                    return;
+                default:
+                    screen.displayMessage("To be implemented. Choose other option\n");
+                    break;
+            }
+        }
+    }
+    
+    private void executeBalanceInquiry(){
+        balanceInquiry.execute(screen,bankInfoSystem);
+    }
 
 }

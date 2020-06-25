@@ -24,11 +24,11 @@ public class Authentication
         boolean loginSuccess = false;
         while ( !loginSuccess )
             {
-            String message = "\n\nWelcome - Please type your card number";
+            String message = "\nWelcome - Please type your card number\n";
             screen.displayMessage( message );
             int cardNumberLogin = keypad.getInput();
 
-            message = "\nPlease type your pin";
+            message = "\nPlease type your pin\n";
             screen.displayMessage( message );
             int pinLogin = keypad.getInput();
 
@@ -42,7 +42,7 @@ public class Authentication
                 }
             else
                 {
-                message = "\nYour card number and/or pin were not correct. Please try again";
+                message = "\nYour card number and/or pin were not correct. Please try again\n";
                 screen.displayMessage( message );
                 }
             }
@@ -51,7 +51,7 @@ public class Authentication
     void logout( Screen screen ) 
         {
         cardNumber = null;   // disconnected
-        String message = "Please take your card. Bye-bye!";
+        String message = "Please take your card. Bye-bye!\n";
         screen.displayMessage( message );
         }
 
